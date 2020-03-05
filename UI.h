@@ -110,8 +110,3 @@ void regist_screen()
 {
 	printf("regist_screenÒÑµ÷ÓÃ");
 }
-
-
-
-
-

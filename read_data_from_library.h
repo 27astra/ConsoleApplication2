@@ -12,5 +12,4 @@ typedef struct user
 	char id_number[18];	//18位身份证号
 	char passport[12];	//最长12位密码
 	int power;	//身份标识（1标识管理员权限,0表示普通用户）
-	struct user* next;
 }user;
