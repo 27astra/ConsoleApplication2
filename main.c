@@ -2,6 +2,7 @@
 #include "UI.h"
 
 void main()
+
 {
-    main_screen(); //进入主界面
+   main_screen(); //进入主界面
 }
