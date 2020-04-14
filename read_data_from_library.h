@@ -16,6 +16,7 @@ typedef struct user
 	int power;	//身份标识（1标识管理员权限,0表示普通用户）
 }user;
 user user_list[100];
+int user_num = 0;
 
 typedef struct plane
 {
@@ -185,6 +186,7 @@ int buy_ticket(char num[], int count)
 	{
 		mysql_free_result(result);
 		mysql_close(&mydata);
+		load_planes();
 		return 0;
 	}
 	else
@@ -226,6 +228,7 @@ void load_users()
 
 		count++;
 	}
+	user_num = count;
 
 	printf("%d", user_list[0].power);
 
@@ -255,6 +258,8 @@ int modify_user_message(char user_name[],char filed_name[],char new_value[])
 	{
 		mysql_free_result(result);
 		mysql_close(&mydata);
+		//更新结构体数组
+		load_users();
 		return 0;
 	}
 	else
@@ -285,6 +290,8 @@ int delet_user(char user_name[])
 	if (mysql_query(&mydata, sql) == 0)
 	{
 		mysql_close(&mydata);
+		// 从数据库删除用户之后需要更新列表 
+		load_users();
 		return 0;
 	}
 
@@ -314,6 +321,7 @@ int regist(char user_name[], int age, int sex, char id_number[], char passport[]
 	if (mysql_query(&mydata, sql) == 0)
 	{
 		mysql_close(&mydata);
+		load_users();
 		return 0;
 	}
 	else

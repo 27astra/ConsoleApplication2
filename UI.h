@@ -14,10 +14,10 @@ void regist_screen();
 void administrator_sign_in_screen();
 
 //	管理员后台界面函数
-//  后台管理可以增删改查用户或用户数据
+// 管理员后台管理可以增删改查用户或用户数据
 void administrator_screen();
 
-//	购票界面函数 
+//	购票界面函数
 // 可以查询航班，购买票，按规则筛选票，推荐路线等
 void ticket_screen();
 
@@ -36,7 +36,7 @@ void main_screen()
 	printf("#                   3、管理员登录                   #\n");
 	printf("#                   0、退出                         #\n");
 	printf("#===================================================#\n");
-	printf("请在1-3(其它字符表示退出)中选择以回车键结束：\n\n");
+	printf("请在1-3(其它字符表示退出)中选择以回车键结束：\n");
 	scanf_s("%d", &j);
 	switch (j)
 	{
@@ -61,22 +61,80 @@ void administrator_screen()
 {
 	int j;
 	printf("#===================================================#\n");
-	printf("#               欢迎进入后台管理系统                #\n");
-	printf("#                   1、登录系统                     #\n");
-	printf("#                   0、退出                         #\n");
+	printf("#               欢迎进入后台管理系统          #\n");
+	printf("#                   1、查询用户信息				#\n");
+	printf("#                   2、查询用户                    #\n");
+	printf("#                   3、修改用户信息             #\n");
+	printf("#                   4、删除用户信息             #\n");
+	printf("#                   5、返回主页                   #\n");
+	printf("#                   0、退出程序                   #\n");
 	printf("#===================================================#\n");
-	printf("请在1-3中选择以回车键结束：\n\n");
+	printf("请在0-5中选择以回车键结束：\n");
 	scanf_s("%d", &j);
+
 	switch (j)
 	{
 	case 1:
+		while (1)
+		{
+			printf("#===================================================#\n");
+			char field_name[15];
+			char field_value[19];
+			printf("请输入要查询的字段名并按回车确认：\n");
+			scanf_s("%s", field_name, 15);
+			printf("请输入要查询的字段值并按回车确认：\n");
+			scanf_s("%s", field_value, 19);
+			user_result* result = query_user_by_info(field_value, field_name);
+			if (result == NULL)
+			{
+				printf("\n字段名不存在!\n");
+				printf("#===================================================#\n");
+			}
+			else
+			{
+				if (result->result_num == 0)
+				{
+					printf("查询结果为空");
+				}
+				else
+				{
+					for (int i = 0; i < result->result_num; i++)
+					{
+						printf("#===================================================#\n");
+						printf("查询结果如下：\n");
+						printf("name:%s\tage:%d\tsex:%d\tid_number:%s\tpassport:%s\tpower:%d\n", result->result[i]->name, result->result[i]->age, result->result[i]->sex, result->result[i]->id_number, result->result[i]->passport, result->result[i]->power);
+						printf("#===================================================#\n");
+					}
+				}
+			}
+			printf("继续查询请输入1并按回车确认返回管理员主页请输入任意字符：\n");
+			int flag = 0;
+			scanf_s(" %d", &flag);
+			if (flag!=1)
+			{
+				break;
+			}
+		}
+		break;
+
+	case 2:
+		printf("#===================================================#\n");
+		break;
+	case 3:
 		system("cls");
-		administrator_sign_in_screen();	//进入管理员登录界面
+		break;
+	case 4:
+		system("cls");
+		break;
+	case 5:
+		system("cls");
 		break;
 	case 0:
-		system("cls");
-		break;
+		exit(0);
 	}
+
+	system("cls");
+	administrator_screen();
 }
 
 void administrator_sign_in_screen()
@@ -94,18 +152,21 @@ void administrator_sign_in_screen()
 	//验证通过则跳转到下一个UI界面，反之提示退出或重试
 	if (administrator_verify(user_name, user_passport) == 0)
 	{
+		system("cls");
 		administrator_screen(); 
 	}
 	else
 	{
 		int i;
-		printf("管理员账号或密码错误，重试请输入1，返回上一层请输入其它数字：\n");
+		printf("管理员账号或密码错误，重试请输入1，返回主页请输入其它数字：\n");
 		scanf_s("%d", &i);
 		switch (i)
 		{
 		case 1:
+			system("cls");
 			administrator_sign_in_screen();
 		default:
+			system("cls");
 			main_screen();
 		}
 	}
@@ -113,12 +174,137 @@ void administrator_sign_in_screen()
 
 void sign_in_screen()
 {
-	printf("sign_in_screen已调用");
+	char user[10];
+	char passWord[12];
+	printf("#===================================================#\n");
+	printf("#               欢迎进入登录界面                #\n");
+	printf("#===================================================#\n");
+	printf("请输入用户名并按回车确认：\n");
+	scanf_s("%s", user, 10);
+	printf("请输入密码并按回车确认：\n");
+	scanf_s("%s", passWord,12);
+
+	int ret = sign_in(user, passWord);
+
+	if (0 == ret)
+	{
+		printf("登录成功");
+		system("cls");
+		ticket_screen();
+	}
+
+	else if (1 == ret)
+	{
+		printf("密码错误，（按y重新输入，其他键退出）：");
+		char in;
+		scanf_s("%c", &in,1);
+		if ('y' != in && 'Y' != in)
+		{
+			system("cls");
+			sign_in_screen();
+		}
+		else
+		{
+			exit(0);
+		}
+	}
+	else
+	{
+		printf("用户名不存在，（输入y重新输入，其他键退出）：\n");
+		char in;
+		scanf_s(" %c", &in,1);
+		if ('y' != in && 'Y' != in)
+		{
+			system("cls");
+			sign_in_screen();
+		}
+		else
+		{
+			exit(0);
+		}
+	}
 }
 
 void regist_screen()
 {
-	printf("regist_screen已调用");
+	printf("#===================================================#\n");
+	printf("#               欢迎进入注册界面                #\n");
+	printf("#===================================================#\n");
+	char username[10]="", pass1[12]="", pass2[12]="", id_number[19];
+	int age, sex, power;
+
+	printf("请输入用户名并按回车确认：\n");
+	scanf_s("%s", username,10);
+	printf("请输入年龄并按回车确认：\n");
+	scanf_s("%d", &age);
+
+	do 
+	{
+		printf("请输入性别(1代表男，0代表女)并按回车确认：\n");
+		scanf_s(" %d", &sex);
+		if (0 == sex || 1 == sex)
+		{
+			break;
+		}
+		printf("不符合规范，请重新输入");
+	} while (1);
+
+	printf("请输入身份证号码并按回车确认：\n");
+	scanf_s(" %s", id_number,19);
+
+	do 
+	{
+		printf("请输入身份标识符(1标识管理员权限,0表示普通用户)：\n");
+		scanf_s("%d", &power);
+		if (0 == power)
+		{
+			break;
+		}
+		else if (1 == power)
+		{
+			int ret;
+			do 
+			{
+				printf("请验证管理员：\n");
+				char user_name_[10], pass_[12];
+				printf("请输入管理员账号并按回车确认：\n");
+				scanf_s(" %s", user_name_,10);
+				printf("请输入管理员密码并按回车确认：\n");
+				scanf_s(" %s", pass_,12);
+				ret = administrator_verify(user_name_, pass_);
+				if (ret != 0)
+				{
+					printf("验证失败！\n");
+					printf("重新验证（Y代表重新验证，输入其它字符退出程序）：\n");
+					char in;
+					scanf_s("%c", &in,1);
+					if ('y' != in && 'Y' != in)
+					{
+						exit(0);
+					}
+				}
+			} while (!ret);
+			break;
+		}
+		printf("不符合规范，请重新输入");
+	} while (1);
+
+	do 
+	{
+		printf("请输入密码并按回车确认：\n");
+		scanf_s(" %s", pass1,12);
+		printf("请再次输入密码并按回车确认：\n");
+		scanf_s("%s", pass2,12);
+	} while (strcmp(pass1, pass2) != 0);
+	int ret = regist(username, age, sex, id_number, pass1, power);
+	if (!ret)
+	{
+		printf("注册成功");
+	}
+	else {
+		printf("注册失败");
+	}
+	//printf("regist_screen已调用");
 }
 
 void ticket_screen()
@@ -127,4 +313,32 @@ void ticket_screen()
 	printf("================================================================================\n");
 	printf(" **-------- ----☆ 1. 浏 览 航 班 信  息 ☆----- ------------------**\n\n" " **-------- ☆  2. 查  找  航  班  信  息  -☆-------- ------------**\n\n" " **-------- ---☆  3.对航班按航班票价排序---☆-----------------------**\n\n" " **-------- ------☆  4. 订 票 信 息-☆-------- -----------------**\n\n" " **-------- ----------☆  0.退出  -☆-------- ---------------------**\n\n" " **-------- ---------------☆  ☆-------- -------------------------**\n\n" " **-------- -----------------☆ -------- --------------------------**\n\n" " **-------- ---------------☆ ☆-------- --------------------------**\n\n");
 	printf("================================================================================\n");
+	printf("请在1-4(其它字符表示退出)中选择以回车键结束：\n");
+	int j;
+	scanf_s("%d", &j);
+	switch (j)
+	{
+		case 1:
+			system("cls");
+			//浏 览 航 班 信  息
+			break;
+		case 2:
+			system("cls");
+			//查  找  航  班  信  息
+			break;
+		case 3:
+			system("cls");
+			//对航班按航班票价排序
+			break;
+		case 4:
+			system("cls");
+			//订 票 信 息
+			break;
+		case 0:
+			system("cls");
+			return;
+			break;
+		default:
+			exit(0);
+	}
 }

@@ -4,5 +4,7 @@
 void main()
 
 {
-   main_screen(); //进入主界面
+    load_users();
+    load_planes();
+    main_screen(); //进入主界面
 }
