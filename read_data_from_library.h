@@ -30,6 +30,7 @@ typedef struct plane
 	int price;	//价格
 }plane;
 plane plane_list[100];
+int plane_num = 0;
 
 static MYSQL mydata;	//数据库指针
 
@@ -137,6 +138,7 @@ void load_planes()
 		plane_list[count].price = atoi(row[7]);
 		count++;
 	}
+	plane_num = count;
 
 	mysql_free_result(result);
 	mysql_close(&mydata);
@@ -229,8 +231,6 @@ void load_users()
 		count++;
 	}
 	user_num = count;
-
-	printf("%d", user_list[0].power);
 
 	mysql_free_result(result);
 	mysql_close(&mydata);

@@ -61,11 +61,11 @@ void administrator_screen()
 {
 	int j;
 	printf("#===================================================#\n");
-	printf("#               欢迎进入后台管理系统          #\n");
-	printf("#                   1、查询用户信息				#\n");
-	printf("#                   2、查询用户                    #\n");
-	printf("#                   3、修改用户信息             #\n");
-	printf("#                   4、删除用户信息             #\n");
+	printf("#               欢迎进入后台管理系统                   #\n");
+	printf("#                   1、查询用户                       #\n");
+	printf("#                   2、查询用户信息                   #\n");
+	printf("#                   3、修改用户信息                   #\n");
+	printf("#                   4、删除用户信息                   #\n");
 	printf("#                   5、返回主页                   #\n");
 	printf("#                   0、退出程序                   #\n");
 	printf("#===================================================#\n");
@@ -98,16 +98,16 @@ void administrator_screen()
 				}
 				else
 				{
+					printf("#===================================================#\n");
+					printf("查询结果如下：\n");
 					for (int i = 0; i < result->result_num; i++)
 					{
-						printf("#===================================================#\n");
-						printf("查询结果如下：\n");
 						printf("name:%s\tage:%d\tsex:%d\tid_number:%s\tpassport:%s\tpower:%d\n", result->result[i]->name, result->result[i]->age, result->result[i]->sex, result->result[i]->id_number, result->result[i]->passport, result->result[i]->power);
 						printf("#===================================================#\n");
 					}
 				}
 			}
-			printf("继续查询请输入1并按回车确认返回管理员主页请输入任意字符：\n");
+			printf("继续查询请输入1并按回车确认,返回管理员主页请输入任意字符：\n");
 			int flag = 0;
 			scanf_s(" %d", &flag);
 			if (flag!=1)
@@ -119,20 +119,116 @@ void administrator_screen()
 
 	case 2:
 		printf("#===================================================#\n");
+		while (1)
+		{
+			char field_name[15];
+			char user_name[10];
+			printf("请输入要查询的用户名并按回车确认:\n");
+			scanf_s(" %s", user_name, 10);
+			printf("请输入要查询的字段名并按回车确认(输入all表示显示全部信息):\n");
+			scanf_s(" %s", field_name, 15);
+			char* result = NULL;
+
+			if (strcmp(field_name,"all")==0)
+			{
+				result = query_info_by_uesr(1, user_name);
+			}
+			else
+			{
+				result = query_info_by_uesr(2, user_name, field_name);
+			}
+			printf("#===================================================#\n");
+			if (result == NULL)
+			{
+				printf("查询结果为空！\n");
+			}
+			else
+			{
+				printf("查询结果如下:\n%s\n", result);
+			}
+			printf("继续查询请输入1并按回车确认,返回管理员主页请输入任意字符：\n");
+			int flag = 0;
+			scanf_s(" %d", &flag);
+			if (flag != 1)
+			{
+				break;
+			}
+		}
 		break;
+
 	case 3:
-		system("cls");
+		printf("#===================================================#\n");
+		while (1)
+		{
+			char user_name[10];
+			char field_name[12];
+			char new_value[19];
+			printf("请输入要修改的用户名并按回车确认:\n");
+			scanf_s(" %s", user_name, 10);
+			printf("请输入要修改的字段名并按回车确认:\n");
+			scanf_s(" %s", field_name, 12);
+			printf("请输入字段的新值并按回车确认:\n");
+			scanf_s(" %s", new_value, 19);
+			int flag = modify_user_message(user_name, field_name, new_value);
+			printf("#===================================================#\n");
+			if (flag)
+			{
+				printf("修改失败！\n");
+			}
+			else
+			{
+				printf("修改成功！\n");
+			}
+			printf("继续修改请输入1并按回车确认,返回管理员主页请输入任意字符：\n");
+			int flag2 = 0;
+			scanf_s(" %d", &flag2);
+			if (flag2 != 1)
+			{
+				break;
+			}
+		}
 		break;
+
 	case 4:
-		system("cls");
+		printf("#===================================================#\n");
+		while (1)
+		{
+			char user_name[10];
+			printf("请输入要删除的用户名并按回车确认:\n");
+			scanf_s(" %s", user_name, 10);
+			printf("#===================================================#\n");
+			char flag[5];
+			printf("请确认是否要删除该用户，确认请输入“Yes”或“yes”并按回车确认\n");
+			scanf_s(" %s", flag, 5);
+			int result = 0;
+			if ( (strcmp(flag,"yes")==0) || (strcmp(flag, "Yes") == 0) )
+			{
+				result = delet_user(user_name);
+			}
+			if (result)
+			{
+				printf("删除用户失败\n");
+			}
+			else
+			{
+				printf("删除用户成功\n");
+			}
+			printf("继续删除请输入1并按回车确认,返回管理员主页请输入任意字符：\n");
+			int flag2 = 0;
+			scanf_s(" %d", &flag2);
+			if (flag2 != 1)
+			{
+				break;
+			}
+		}
 		break;
 	case 5:
 		system("cls");
+		main_screen();
 		break;
 	case 0:
 		exit(0);
 	}
-
 	system("cls");
 	administrator_screen();
 }
@@ -283,12 +379,12 @@ void regist_screen()
 						exit(0);
 					}
 				}
-			} while (!ret);
+			} while (ret);
 			break;
 		}
 		printf("不符合规范，请重新输入");
 	} while (1);
-
+	printf("#===================================================#\n");
 	do 
 	{
 		printf("请输入密码并按回车确认：\n");
@@ -296,8 +392,7 @@ void regist_screen()
 		printf("请再次输入密码并按回车确认：\n");
 		scanf_s("%s", pass2,12);
 	} while (strcmp(pass1, pass2) != 0);
-	int ret = regist(username, age, sex, id_number, pass1, power);
-	if (!ret)
+	if (!regist(username, age, sex, id_number, pass1, power))
 	{
 		printf("注册成功");
 	}
@@ -342,3 +437,5 @@ void ticket_screen()
 			exit(0);
 	}
 }
+
+voi

@@ -281,23 +281,23 @@ char* query_info_by_uesr(int num, ...)
 	//返回指定字段的值
 	if (have_field)
 	{
-		if (strcmp(field, "age"))
+		if (strcmp(field, "age")==0)
 		{
 			return age;
 		}
-		if (strcmp(field, "sex"))
+		if (strcmp(field, "sex")==0)
 		{
 			return sex;
 		}
-		if (strcmp(field, "id_number"))
+		if (strcmp(field, "id_number")==0)
 		{
 			return user_list[i].id_number;
 		}
-		if (strcmp(field, "passport"))
+		if (strcmp(field, "passport")==0)
 		{
 			return user_list[i].passport;
 		}
-		if (strcmp(field, "power"))
+		if (strcmp(field, "power")==0)
 		{
 			return po;
 		}
