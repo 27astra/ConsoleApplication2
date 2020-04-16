@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "user_system.h"
 #include "ticket_system.h"
+#include<windows.h>
 
 /*以下为函数声明*/
 
@@ -414,9 +415,47 @@ void ticket_screen()
 	switch (j)
 	{
 		case 1:
-			system("cls");
-			//浏 览 航 班 信  息
+			printf("#===================================================#\n");
+			print_planes();
+			int flag = 0;
+			printf("继续订票请输入1并按回车确认，输入其它字符返回订票页面");
+			scanf_s(" %d", &flag);
+			if (flag==1)
+			{
+				printf("#===================================================#\n");
+				char plane_id[10];
+				int num = 0;
+				printf("请输入要购买机票的航班号并按回车确认:\n");
+				scanf_s(" %s", plane_id);
+				printf("请输入要购买机票的数量并按回车确认:\t");
+				scanf_s(" %d", &num);
+				int result = buy_ticket(plane_id,num);
+				switch (result)
+				{
+				case 1 :
+					printf("余票不足，购买失败\n");
+					break;
+				case 2:
+					printf("航班号输入错误，购买失败\n");
+					break;
+				case 3:
+					printf("未知错误，购买失败");
+					break;
+				case 0:
+					printf("购买成功，3秒后返回购票主页......");
+					Sleep(3);
+					system("cls");
+					ticket_screen();
+					break;
+				}
+			}
+			else
+			{
+				system("cls");
+				ticket_screen();
+			}
 			break;
+
 		case 2:
 			system("cls");
 			//查  找  航  班  信  息
@@ -437,5 +476,3 @@ void ticket_screen()
 			exit(0);
 	}
 }
-
-voi
