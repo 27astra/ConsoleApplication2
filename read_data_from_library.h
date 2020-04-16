@@ -112,7 +112,7 @@ void load_planes()
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));
@@ -151,7 +151,7 @@ int buy_ticket(char num[], int count)
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));
@@ -204,7 +204,7 @@ void load_users()
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));
@@ -244,7 +244,7 @@ int modify_user_message(char user_name[],char filed_name[],char new_value[])
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));
@@ -277,7 +277,7 @@ int delet_user(char user_name[])
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));
@@ -308,7 +308,7 @@ int regist(char user_name[], int age, int sex, char id_number[], char passport[]
 
 	mysql_init(&mydata);
 
-	if (mysql_real_connect(&mydata, "localhost", "root", "123456", "new_schema", 3306, NULL, 0) == NULL)
+	if (mysql_real_connect(&mydata, "localhost", "root", "711013WYP", "new_schema", 3306, NULL, 0) == NULL)
 	{
 		printf("数据库连接失败！\\n");
 		fprintf(stderr, " %s\n", mysql_error(&mydata));

@@ -426,7 +426,7 @@ void ticket_screen()
 				char plane_id[10];
 				int num = 0;
 				printf("请输入要购买机票的航班号并按回车确认:\n");
-				scanf_s(" %s", plane_id);
+				scanf_s(" %s", plane_id,10);
 				printf("请输入要购买机票的数量并按回车确认:\t");
 				scanf_s(" %d", &num);
 				int result = buy_ticket(plane_id,num);
