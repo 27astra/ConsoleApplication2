@@ -5,6 +5,7 @@
 #include <mysql.h>
 #pragma comment(lib,"libmysql.lib")
 #pragma once
+//这是测试更改的一行代码   ctrl+s保存本地的更改
 
 typedef struct user
 {
