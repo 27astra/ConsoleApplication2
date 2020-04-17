@@ -19,7 +19,11 @@ void print_planes()
 {
 	for (int i = 0; i < plane_num; i++)
 	{
-		printf("航班号:%s\t飞机型号:%s\t出发地名称:%s\t目的地名称:%s\t起飞时间:%s\t降落时间:%s\t价格:%d\t剩余票量:%d\t\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination, plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
+		printf("\t\t\t☆==============================================================================☆\n\n");
+		printf("\t\t\t%d  %-22s%-22s%-22s%-22s\n", i + 1, "航班号", "飞机型号", "出发地名称", "目的地名称");
+		printf("\t\t\t   %-22s%-22s%-22s%-22s\n\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination);
+		printf("\t\t\t%d  %-22s%-22s%-22s%-22s\n", i + 1, "起飞时间", "降落时间", "价格", "剩余票量");
+		printf("\t\t\t   %-22s%-22s%-22d%-22d\n\n", plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
 	}
 }
 
@@ -31,7 +35,11 @@ void query_plane_by_starting_point(char start_point[])
 	{
 		if (strcmp(start_point,plane_list[i].starting_point)==0)
 		{
-			printf("航班号:%s\t飞机型号:%s\t出发地名称:%s\t目的地名称:%s\t起飞时间:%s\t降落时间:%s\t价格:%d\t剩余票量:%d\t\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination, plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
+			printf("\t\t\t☆==============================================================================☆\n\n");
+			printf("\t\t\t  %-22s%-22s%-22s%-22s\n", "航班号", "飞机型号", "出发地名称", "目的地名称");
+			printf("\t\t\t   %-22s%-22s%-22s%-22s\n\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination);
+			printf("\t\t\t  %-22s%-22s%-22s%-22s\n", "起飞时间", "降落时间", "价格", "剩余票量");
+			printf("\t\t\t   %-22s%-22s%-22d%-22d\n\n", plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
 		}
 	}
 	if (count ==0)
@@ -49,7 +57,11 @@ void query_plane_destination(char destination[])
 	{
 		if (strcmp(destination, plane_list[i].destination) == 0)
 		{
-			printf("航班号:%s\t飞机型号:%s\t出发地名称:%s\t目的地名称:%s\t起飞时间:%s\t降落时间:%s\t价格:%d\t剩余票量:%d\t\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination, plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
+			printf("\t\t\t☆==============================================================================☆\n\n");
+			printf("\t\t\t  %-22s%-22s%-22s%-22s\n", "航班号", "飞机型号", "出发地名称", "目的地名称");
+			printf("\t\t\t   %-22s%-22s%-22s%-22s\n\n", plane_list[i].num, plane_list[i].model, plane_list[i].starting_point, plane_list[i].destination);
+			printf("\t\t\t  %-22s%-22s%-22s%-22s\n", "起飞时间", "降落时间", "价格", "剩余票量");
+			printf("\t\t\t   %-22s%-22s%-22d%-22d\n\n", plane_list[i].start_time, plane_list[i].end_time, plane_list[i].price, plane_list[i].count);
 		}
 	}
 	if (count == 0)

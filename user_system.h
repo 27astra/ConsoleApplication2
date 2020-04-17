@@ -308,7 +308,9 @@ char* query_info_by_uesr(int num, ...)
 	else
 	{
 		static char k[100];
-		sprintf_s(k, 100, "name:%s\tage:%s\tsex:%s\tid_number:%s\tpassport:%s\tpower:%s\n", user_list[i].name, age, sex, user_list[i].id_number, user_list[i].passport, po);
+		printf("\n\n\t\t\t¡î==============================================================================¡î\n");
+		printf("\t\t\t  %-13s%-13s%-13s%-23s%-13s%-13s\n", "name", "age", "sex", "id_number", "passport", "power");
+		sprintf_s(k, 100, "\t\t\t  %-13s%-13s%-13s%-23s%-13s%-13s\n", user_list[i].name, age, sex, user_list[i].id_number, user_list[i].passport, po);
 		return k;
 	}
 }
